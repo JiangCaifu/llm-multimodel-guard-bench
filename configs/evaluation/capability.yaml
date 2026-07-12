@@ -1,0 +1,31 @@
+# 能力评测任务配置
+# 对应 Phase 1 Day 7-8: MMLU + C-Eval + GSM8K 跑通
+
+name: capability_eval_v1
+description: "能力基准评测 - MMLU + C-Eval + GSM8K + HumanEval"
+version: 0.1.0
+
+# 待评测模型 (引用 configs/models/*.yaml)
+models:
+  - gpt-4
+  # - qwen2-7b
+
+# 待评测数据集 (引用 configs/datasets/*.yaml)
+datasets:
+  - mmlu
+  # - c_eval
+  # - gsm8k
+  # - humaneval
+
+# 执行配置
+execution:
+  parallel: false  # Phase 1 先串行，后续启用 Celery 并行
+  max_samples_per_dataset: 200  # 开发阶段限制样本数
+  save_intermediate: true  # 保存中间结果
+  output_dir: ./data/results/capability
+
+# 报告配置
+report:
+  generate_html: true
+  generate_radar_chart: true
+  output_format: [json, csv, html]

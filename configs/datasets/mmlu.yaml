@@ -1,0 +1,45 @@
+# 数据集配置 - MMLU
+name: mmlu
+version: 1.0.0
+
+# 数据源
+source:
+  type: huggingface  # huggingface / local / custom
+  path: cais/mmlu
+  subset: all
+  split: test
+
+# 评测参数
+eval:
+  # 评测方式: multiple_choice / generation / judge
+  method: multiple_choice
+  # 题目数量限制 (null=全量, 数字=子集大小)
+  sample_size: 1000
+  random_seed: 42
+  # few-shot 数量
+  n_shot: 5
+
+# Prompt 模板 (Jinja2)
+prompt_template: |
+  The following are multiple choice questions (with answers) about {{ subject }}.
+
+  {{ few_shot_examples }}
+
+  Question: {{ question }}
+  A. {{ choices[0] }}
+  B. {{ choices[1] }}
+  C. {{ choices[2] }}
+  D. {{ choices[3] }}
+  Answer:
+
+# 评判
+judge:
+  method: exact_match  # exact_match / contains / regex / llm_judge
+  answer_field: answer  # 标准答案字段
+  choices_field: choices
+
+# 元数据
+metadata:
+  language: en
+  domain: knowledge_reasoning
+  tags: [academic, multi_subject]
