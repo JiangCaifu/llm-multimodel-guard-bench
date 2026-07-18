@@ -7,12 +7,15 @@ version: 0.1.0
 
 # 待评测模型 (引用 configs/models/*.yaml)
 models:
-  - gpt-4
+  - qwen-turbo
+  # - gpt-4
   # - qwen2-7b
 
 # 待评测数据集 (引用 configs/datasets/*.yaml)
 datasets:
-  - mmlu
+  # - mmlu  # 需要 HuggingFace 下载，网络不通时注释掉
+  - finance_50
+  - medical_50
   # - c_eval
   # - gsm8k
   # - humaneval

@@ -1,0 +1,40 @@
+# 数据集配置 - 自建医疗评测集
+name: medical_50
+version: 1.0.0
+
+source:
+  type: local
+  path: data/datasets/medical_50.json
+  subset: null
+  split: test
+
+eval:
+  method: multiple_choice
+  sample_size: null  # 全部50条
+  random_seed: 42
+  n_shot: 0
+
+prompt_template: |
+  以下是一道医疗领域的单项选择题。
+
+  题目：{{ question }}
+  A. {{ choices[0] }}
+  B. {{ choices[1] }}
+  C. {{ choices[2] }}
+  D. {{ choices[3] }}
+  答案：
+
+judge:
+  method: multiple_choice
+  answer_field: answer
+  choices_field: choices
+
+metadata:
+  language: zh
+  domain: medical
+  tags: [medical, chinese, custom, drug_safety, contraindication]
+  sub_domains: [诊断, 用药, 禁忌, 基础医学]
+  difficulty_distribution:
+    easy: 18
+    medium: 24
+    hard: 8

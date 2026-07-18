@@ -1,0 +1,452 @@
+[
+  {
+    "id": "med_001",
+    "question": "正常成人的静息心率范围是多少？",
+    "choices": ["40-60次/分", "60-100次/分", "100-120次/分", "120-140次/分"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "基础医学",
+    "explanation": "成人静息心率正常范围为60-100次/分"
+  },
+  {
+    "id": "med_002",
+    "question": "以下哪种药物属于解热镇痛药？",
+    "choices": ["阿莫西林", "布洛芬", "奥美拉唑", "氨氯地平"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "用药",
+    "explanation": "布洛芬属于NSAIDs类解热镇痛药"
+  },
+  {
+    "id": "med_003",
+    "question": "高血压的诊断标准是收缩压和/或舒张压分别大于等于多少mmHg？",
+    "choices": ["120/80", "130/85", "140/90", "150/95"],
+    "answer": "C",
+    "difficulty": "easy",
+    "sub_domain": "诊断",
+    "explanation": "高血压诊断标准为收缩压≥140mmHg和/或舒张压≥90mmHg"
+  },
+  {
+    "id": "med_004",
+    "question": "以下哪种维生素缺乏会导致坏血病？",
+    "choices": ["维生素A", "维生素B1", "维生素C", "维生素D"],
+    "answer": "C",
+    "difficulty": "easy",
+    "sub_domain": "用药",
+    "explanation": "维生素C缺乏导致坏血病"
+  },
+  {
+    "id": "med_005",
+    "question": "糖尿病患者空腹血糖的正常参考值上限是多少mmol/L？",
+    "choices": ["5.6", "6.1", "7.0", "7.8"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "诊断",
+    "explanation": "空腹血糖正常参考值上限为6.1mmol/L，≥7.0mmol/L可诊断糖尿病"
+  },
+  {
+    "id": "med_006",
+    "question": "以下哪种抗生素属于青霉素类？",
+    "choices": ["头孢克肟", "阿莫西林", "阿奇霉素", "左氧氟沙星"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "用药",
+    "explanation": "阿莫西林属于青霉素类抗生素"
+  },
+  {
+    "id": "med_007",
+    "question": "以下哪项检查是诊断冠心病的金标准？",
+    "choices": ["心电图", "心脏超声", "冠状动脉造影", "心肌酶谱"],
+    "answer": "C",
+    "difficulty": "medium",
+    "sub_domain": "诊断",
+    "explanation": "冠状动脉造影是诊断冠心病的金标准"
+  },
+  {
+    "id": "med_008",
+    "question": "以下哪种药物使用前必须做皮试？",
+    "choices": ["阿司匹林", "青霉素", "布洛芬", "对乙酰氨基酚"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "用药",
+    "explanation": "青霉素易引起过敏反应，使用前必须做皮试"
+  },
+  {
+    "id": "med_009",
+    "question": "成人每日推荐饮水量约为多少毫升？",
+    "choices": ["500-800ml", "1000-1500ml", "1500-1700ml", "2000-3000ml"],
+    "answer": "C",
+    "difficulty": "easy",
+    "sub_domain": "基础医学",
+    "explanation": "中国居民膳食指南推荐成人每日饮水1500-1700ml"
+  },
+  {
+    "id": "med_010",
+    "question": "以下哪种疾病属于自身免疫性疾病？",
+    "choices": ["感冒", "系统性红斑狼疮", "肺炎", "胃溃疡"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "诊断",
+    "explanation": "系统性红斑狼疮(SLE)是典型的自身免疫性疾病"
+  },
+  {
+    "id": "med_011",
+    "question": "以下哪种情况属于头孢类药物的禁忌？",
+    "choices": ["饭后服用", "与含酒精饮料同服", "空腹服用", "温水送服"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "禁忌",
+    "explanation": "头孢与酒精同服可引起双硫仑样反应，属禁忌"
+  },
+  {
+    "id": "med_012",
+    "question": "以下哪项不是糖尿病的典型症状？",
+    "choices": ["多饮", "多食", "多尿", "多汗"],
+    "answer": "D",
+    "difficulty": "easy",
+    "sub_domain": "诊断",
+    "explanation": "糖尿病典型症状为'三多一少'：多饮、多食、多尿、体重减少"
+  },
+  {
+    "id": "med_013",
+    "question": "以下哪种药物不能与葡萄柚汁同服？",
+    "choices": ["阿司匹林", "氨氯地平", "布洛芬", "奥美拉唑"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "禁忌",
+    "explanation": "葡萄柚汁抑制CYP3A4酶，影响氨氯地平等药物代谢"
+  },
+  {
+    "id": "med_014",
+    "question": "以下哪项指标可用于评估肝功能？",
+    "choices": ["肌酐", "ALT(谷丙转氨酶)", "尿素氮", "尿酸"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "诊断",
+    "explanation": "ALT是评估肝功能的常用指标"
+  },
+  {
+    "id": "med_015",
+    "question": "以下哪种疾病需要终身服用左甲状腺素替代治疗？",
+    "choices": ["甲亢", "甲状腺功能减退", "甲状腺结节", "甲状腺炎"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "用药",
+    "explanation": "甲减需要终身左甲状腺素替代治疗"
+  },
+  {
+    "id": "med_016",
+    "question": "以下哪种是WHO推荐的结核病一线治疗药物？",
+    "choices": ["阿莫西林", "异烟肼", "万古霉素", "甲硝唑"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "用药",
+    "explanation": "异烟肼是结核病一线治疗药物之一"
+  },
+  {
+    "id": "med_017",
+    "question": "以下哪项属于医学上的急腹症，需要立即就医？",
+    "choices": ["消化不良", "急性阑尾炎", "轻度胃胀", "偶尔腹泻"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "诊断",
+    "explanation": "急性阑尾炎属于急腹症，需紧急处理"
+  },
+  {
+    "id": "med_018",
+    "question": "阿司匹林的主要禁忌症不包括以下哪项？",
+    "choices": ["活动性消化道出血", "严重肝功能不全", "轻度头痛", "阿司匹林哮喘"],
+    "answer": "C",
+    "difficulty": "medium",
+    "sub_domain": "禁忌",
+    "explanation": "轻度头痛是阿司匹林的适应症而非禁忌症"
+  },
+  {
+    "id": "med_019",
+    "question": "以下哪种疫苗属于灭活疫苗？",
+    "choices": ["麻疹疫苗", "流感减毒活疫苗", "乙肝疫苗", "卡介苗"],
+    "answer": "C",
+    "difficulty": "hard",
+    "sub_domain": "用药",
+    "explanation": "乙肝疫苗属于基因工程/重组蛋白疫苗(非活疫苗)"
+  },
+  {
+    "id": "med_020",
+    "question": "以下哪种情况需要立即拨打120急救电话？",
+    "choices": ["轻微擦伤", "突发一侧肢体无力伴言语不清", "普通感冒发热38°C", "轻微胃部不适"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "诊断",
+    "explanation": "一侧肢体无力伴言语不清是脑卒中典型症状，需急救"
+  },
+  {
+    "id": "med_021",
+    "question": "以下哪种药物长期使用可能导致骨质疏松？",
+    "choices": ["阿司匹林", "糖皮质激素", "抗生素", "降压药"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "用药",
+    "explanation": "糖皮质激素长期使用可导致骨质疏松等副作用"
+  },
+  {
+    "id": "med_022",
+    "question": "以下哪项是心电图中代表心室除极的波？",
+    "choices": ["P波", "QRS波群", "T波", "U波"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "诊断",
+    "explanation": "QRS波群代表心室除极过程"
+  },
+  {
+    "id": "med_023",
+    "question": "以下哪种情况不宜服用避孕药？",
+    "choices": ["月经不调", "有血栓病史", "痛经", "痤疮"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "禁忌",
+    "explanation": "有血栓病史者服用避孕药增加血栓风险，属禁忌"
+  },
+  {
+    "id": "med_024",
+    "question": "以下哪种检查方法对肺癌筛查最有效？",
+    "choices": ["X光胸片", "低剂量CT", "MRI", "PET-CT"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "诊断",
+    "explanation": "低剂量CT是目前推荐的肺癌筛查方法"
+  },
+  {
+    "id": "med_025",
+    "question": "以下哪种药物属于他汀类降脂药？",
+    "choices": ["氨氯地平", "阿托伐他汀", "二甲双胍", "奥美拉唑"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "用药",
+    "explanation": "阿托伐他汀属于他汀类降脂药"
+  },
+  {
+    "id": "med_026",
+    "question": "以下哪种情况属于误用抗生素？",
+    "choices": ["细菌性肺炎使用阿莫西林", "病毒性感冒使用阿莫西林", "泌尿系感染使用左氧氟沙星", "幽门螺杆菌使用阿莫西林"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "禁忌",
+    "explanation": "病毒性感冒使用抗生素无效，属于误用"
+  },
+  {
+    "id": "med_027",
+    "question": "正常成人血红蛋白的参考范围，男性约为多少g/L？",
+    "choices": ["90-120", "120-160", "160-200", "100-150"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "诊断",
+    "explanation": "男性血红蛋白正常参考范围约为120-160g/L"
+  },
+  {
+    "id": "med_028",
+    "question": "以下哪种药物可用于缓解急性哮喘发作？",
+    "choices": ["沙丁胺醇吸入", "孟鲁司特", "布地奈德吸入", "氯雷他定"],
+    "answer": "A",
+    "difficulty": "medium",
+    "sub_domain": "用药",
+    "explanation": "沙丁胺醇是短效β2受体激动剂，用于急性哮喘缓解"
+  },
+  {
+    "id": "med_029",
+    "question": "以下哪种食物痛风患者应避免食用？",
+    "choices": ["苹果", "动物内脏", "牛奶", "鸡蛋"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "禁忌",
+    "explanation": "动物内脏嘌呤含量高，痛风患者应避免"
+  },
+  {
+    "id": "med_030",
+    "question": "以下哪项不属于常见的药物不良反应监测方法？",
+    "choices": ["自发报告系统", "医院集中监测", "患者自行停药", "处方事件监测"],
+    "answer": "C",
+    "difficulty": "hard",
+    "sub_domain": "用药",
+    "explanation": "患者自行停药不是药物不良反应监测方法"
+  },
+  {
+    "id": "med_031",
+    "question": "以下哪种情况属于高血压的紧急情况(高血压危象)？",
+    "choices": ["血压130/85mmHg", "血压180/120mmHg伴靶器官损害", "血压145/95mmHg无症状", "血压150/90mmHg伴头痛"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "诊断",
+    "explanation": "血压≥180/120mmHg伴靶器官损害为高血压危象"
+  },
+  {
+    "id": "med_032",
+    "question": "以下哪种药物与华法林合用会增加出血风险？",
+    "choices": ["维生素C", "阿司匹林", "钙片", "益生菌"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "禁忌",
+    "explanation": "阿司匹林与华法林合用显著增加出血风险"
+  },
+  {
+    "id": "med_033",
+    "question": "以下哪种情况需要预防性使用抗生素？",
+    "choices": ["普通感冒", "手术前预防感染", "运动后肌肉酸痛", "偶尔头痛"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "用药",
+    "explanation": "手术前预防性使用抗生素是标准医疗实践"
+  },
+  {
+    "id": "med_034",
+    "question": "以下哪项是CPR(心肺复苏)的正确操作顺序？",
+    "choices": ["开放气道-人工呼吸-胸外按压", "胸外按压-开放气道-人工呼吸", "人工呼吸-胸外按压-开放气道", "开放气道-胸外按压-人工呼吸"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "基础医学",
+    "explanation": "当前CPR指南顺序为C-A-B：胸外按压-开放气道-人工呼吸"
+  },
+  {
+    "id": "med_035",
+    "question": "以下哪种药物是二甲双胍的禁忌症？",
+    "choices": ["2型糖尿病", "严重肾功能不全", "超重", "胰岛素抵抗"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "禁忌",
+    "explanation": "严重肾功能不全(eGFR<30)是二甲双胍禁忌症"
+  },
+  {
+    "id": "med_036",
+    "question": "以下哪种检查对脑卒中急性期诊断最有价值？",
+    "choices": ["脑电图", "头颅CT", "X线", "肌电图"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "诊断",
+    "explanation": "头颅CT可快速鉴别缺血性和出血性脑卒中"
+  },
+  {
+    "id": "med_037",
+    "question": "以下哪种药物属于质子泵抑制剂(PPI)？",
+    "choices": ["法莫替丁", "奥美拉唑", "氢氧化铝", "多潘立酮"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "用药",
+    "explanation": "奥美拉唑属于质子泵抑制剂"
+  },
+  {
+    "id": "med_038",
+    "question": "以下哪种情况应暂缓接种疫苗？",
+    "choices": ["健康状况良好", "正在发热的急性疾病期", "既往无过敏史", "已过接种间隔期"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "禁忌",
+    "explanation": "发热等急性疾病期间应暂缓接种疫苗"
+  },
+  {
+    "id": "med_039",
+    "question": "以下哪项指标主要用于评估肾功能？",
+    "choices": ["ALT", "血清肌酐/eGFR", "血红蛋白", "白蛋白"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "诊断",
+    "explanation": "血清肌酐和eGFR是评估肾功能的主要指标"
+  },
+  {
+    "id": "med_040",
+    "question": "以下哪种药物属于ACEI类降压药？",
+    "choices": ["氨氯地平", "依那普利", "缬沙坦", "美托洛尔"],
+    "answer": "B",
+    "difficulty": "hard",
+    "sub_domain": "用药",
+    "explanation": "依那普利属于ACEI类，缬沙坦属于ARB类"
+  },
+  {
+    "id": "med_041",
+    "question": "以下哪种病原体引起的肺炎需要使用大环内酯类抗生素？",
+    "choices": ["肺炎链球菌", "支原体", "大肠杆菌", "金黄色葡萄球菌"],
+    "answer": "B",
+    "difficulty": "hard",
+    "sub_domain": "用药",
+    "explanation": "支原体肺炎首选大环内酯类抗生素(如阿奇霉素)"
+  },
+  {
+    "id": "med_042",
+    "question": "以下哪种情况不能使用布洛芬？",
+    "choices": ["牙痛", "活动性消化道溃疡", "肌肉酸痛", "发热38.5°C以上"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "禁忌",
+    "explanation": "活动性消化道溃疡是布洛芬的禁忌症"
+  },
+  {
+    "id": "med_043",
+    "question": "以下哪种检查是产前筛查唐氏综合征的常用方法？",
+    "choices": ["B超", "羊水穿刺", "血清学筛查+NT", "CT"],
+    "answer": "C",
+    "difficulty": "medium",
+    "sub_domain": "诊断",
+    "explanation": "血清学筛查+NT测量是产前筛查唐氏综合征的常用方法"
+  },
+  {
+    "id": "med_044",
+    "question": "以下关于胰岛素的说法，哪个是正确的？",
+    "choices": ["胰岛素口服吸收好", "1型糖尿病患者必须使用胰岛素", "胰岛素可以治愈糖尿病", "胰岛素只能在医院使用"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "用药",
+    "explanation": "1型糖尿病因胰岛素绝对缺乏，必须使用胰岛素治疗"
+  },
+  {
+    "id": "med_045",
+    "question": "以下哪种药物长期服用需要监测血钾水平？",
+    "choices": ["阿司匹林", "呋塞米", "布洛芬", "氯雷他定"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "用药",
+    "explanation": "呋塞米是排钾利尿剂，长期服用需监测血钾"
+  },
+  {
+    "id": "med_046",
+    "question": "以下哪项是过敏反应(过敏性休克)的首选急救药物？",
+    "choices": ["地塞米松", "肾上腺素", "苯海拉明", "阿托品"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "用药",
+    "explanation": "肾上腺素是过敏性休克的首选急救药物"
+  },
+  {
+    "id": "med_047",
+    "question": "以下哪种情况属于幽门螺杆菌感染的根除适应症？",
+    "choices": ["健康无症状携带者", "胃溃疡", "偶尔胃胀", "食欲不佳"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "诊断",
+    "explanation": "胃溃疡是幽门螺杆菌根除治疗的明确适应症"
+  },
+  {
+    "id": "med_048",
+    "question": "以下哪种做法可以减少抗生素耐药性的产生？",
+    "choices": ["症状好转就停药", "遵医嘱足疗程用药", "自行加大剂量", "同时服用多种抗生素"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "用药",
+    "explanation": "遵医嘱足疗程用药是减少耐药性的正确做法"
+  },
+  {
+    "id": "med_049",
+    "question": "以下哪种药物孕妇禁用？",
+    "choices": ["叶酸", "利巴韦林", "铁剂", "钙片"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "禁忌",
+    "explanation": "利巴韦林有致畸作用，孕妇禁用"
+  },
+  {
+    "id": "med_050",
+    "question": "以下哪种情况需立即进行溶栓治疗？",
+    "choices": ["慢性稳定性心绞痛", "急性ST段抬高型心肌梗死", "心律失常", "慢性心力衰竭"],
+    "answer": "B",
+    "difficulty": "hard",
+    "sub_domain": "诊断",
+    "explanation": "急性ST段抬高型心肌梗死(STEMI)是溶栓治疗的适应症"
+  }
+]

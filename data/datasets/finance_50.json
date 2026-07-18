@@ -1,0 +1,452 @@
+[
+  {
+    "id": "fin_001",
+    "question": "某投资者以10万元购买了一只股票型基金，一年后净值下跌20%，此时赎回，亏损金额是多少？",
+    "choices": ["1万元", "2万元", "8万元", "8000元"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "理财",
+    "explanation": "10万×20%=2万元"
+  },
+  {
+    "id": "fin_002",
+    "question": "以下哪种金融产品属于固定收益类产品？",
+    "choices": ["股票型基金", "国债", "期货", "权证"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "理财",
+    "explanation": "国债属于固定收益类产品，有固定的利息支付"
+  },
+  {
+    "id": "fin_003",
+    "question": "A股市场的涨跌停板制度规定，普通股票的日涨跌幅限制为多少？",
+    "choices": ["5%", "10%", "15%", "20%"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "证券",
+    "explanation": "A股普通股票日涨跌幅限制为10%（ST股票为5%，创业板/科创板为20%）"
+  },
+  {
+    "id": "fin_004",
+    "question": "以下哪项不属于商业银行的中间业务？",
+    "choices": ["转账结算", "代理理财", "发放贷款", "信用证业务"],
+    "answer": "C",
+    "difficulty": "easy",
+    "sub_domain": "银行",
+    "explanation": "发放贷款属于资产业务，不属于中间业务"
+  },
+  {
+    "id": "fin_005",
+    "question": "复利计算：年利率5%，按年复利，1万元3年后的本息合计约为多少？",
+    "choices": ["11500元", "11576元", "11628元", "12000元"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "理财",
+    "explanation": "10000×(1+5%)³=10000×1.157625≈11576元"
+  },
+  {
+    "id": "fin_006",
+    "question": "某银行一年期定期存款利率为1.75%，通货膨胀率为2.5%，实际利率约为多少？",
+    "choices": ["4.25%", "0.75%", "-0.75%", "-0.25%"],
+    "answer": "C",
+    "difficulty": "medium",
+    "sub_domain": "银行",
+    "explanation": "实际利率≈名义利率-通货膨胀率=1.75%-2.5%=-0.75%"
+  },
+  {
+    "id": "fin_007",
+    "question": "以下哪种风险属于系统性风险？",
+    "choices": ["某公司CEO离职", "央行加息", "某企业财务造假", "某行业政策调整"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "风控",
+    "explanation": "央行加息影响整个市场，属于系统性风险"
+  },
+  {
+    "id": "fin_008",
+    "question": "根据巴塞尔协议III，商业银行的核心一级资本充足率不得低于多少？",
+    "choices": ["4%", "4.5%", "6%", "8%"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "合规",
+    "explanation": "巴塞尔协议III要求核心一级资本充足率不低于4.5%"
+  },
+  {
+    "id": "fin_009",
+    "question": "某债券面值100元，票面利率5%，市场利率上升至6%时，该债券价格将如何变化？",
+    "choices": ["上升", "下降", "不变", "无法判断"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "证券",
+    "explanation": "市场利率上升，已发行债券价格下降（利率与债券价格反向变动）"
+  },
+  {
+    "id": "fin_010",
+    "question": "以下哪种基金最适合长期定投？",
+    "choices": ["货币基金", "指数基金", "保本基金", "QDII基金"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "理财",
+    "explanation": "指数基金跟踪市场指数，适合长期定投分散风险"
+  },
+  {
+    "id": "fin_011",
+    "question": "某投资者以每股20元买入1000股股票，以25元卖出，不考虑交易成本，收益率是多少？",
+    "choices": ["20%", "25%", "50%", "5%"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "证券",
+    "explanation": "(25-20)/20=25%"
+  },
+  {
+    "id": "fin_012",
+    "question": "以下关于银行卡的说法，哪个是正确的？",
+    "choices": ["借记卡可以透支", "信用卡先消费后还款", "借记卡有免息期", "信用卡不能取现"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "银行",
+    "explanation": "信用卡的特点是先消费后还款"
+  },
+  {
+    "id": "fin_013",
+    "question": "根据中国反洗钱法，金融机构对客户身份资料应当自业务关系结束之日起至少保存多少年？",
+    "choices": ["3年", "5年", "10年", "15年"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "合规",
+    "explanation": "反洗钱法规定客户身份资料和交易记录至少保存5年"
+  },
+  {
+    "id": "fin_014",
+    "question": "某公司市盈率为20倍，每股收益为2元，则其股价约为多少？",
+    "choices": ["10元", "20元", "40元", "80元"],
+    "answer": "C",
+    "difficulty": "easy",
+    "sub_domain": "证券",
+    "explanation": "股价=市盈率×每股收益=20×2=40元"
+  },
+  {
+    "id": "fin_015",
+    "question": "以下哪种保险属于人身保险？",
+    "choices": ["财产保险", "责任保险", "健康保险", "信用保险"],
+    "answer": "C",
+    "difficulty": "easy",
+    "sub_domain": "保险",
+    "explanation": "健康保险属于人身保险范畴"
+  },
+  {
+    "id": "fin_016",
+    "question": "商业银行的流动性覆盖率(LCR)的最低监管标准是多少？",
+    "choices": ["50%", "60%", "80%", "100%"],
+    "answer": "D",
+    "difficulty": "medium",
+    "sub_domain": "合规",
+    "explanation": "LCR最低监管标准为100%"
+  },
+  {
+    "id": "fin_017",
+    "question": "在信用评分模型中，以下哪个因素通常对个人信用评分影响最大？",
+    "choices": ["查询记录", "还款历史", "信用账户数量", "信用历史长度"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "风控",
+    "explanation": "还款历史是信用评分中权重最高的因素，约占35%"
+  },
+  {
+    "id": "fin_018",
+    "question": "以下关于期权的说法，哪个是正确的？",
+    "choices": ["看涨期权买方有义务买入", "看跌期权卖方有权利卖出", "看涨期权买方有权利买入", "期权卖方只需缴纳保证金"],
+    "answer": "C",
+    "difficulty": "medium",
+    "sub_domain": "证券",
+    "explanation": "看涨期权(call)买方拥有以约定价格买入标的资产的权利"
+  },
+  {
+    "id": "fin_019",
+    "question": "某理财产品预期年化收益率为4.5%，投资10万元持有90天，预期收益约为多少？",
+    "choices": ["450元", "900元", "1109元", "1800元"],
+    "answer": "C",
+    "difficulty": "medium",
+    "sub_domain": "理财",
+    "explanation": "100000×4.5%×90/365≈1109元"
+  },
+  {
+    "id": "fin_020",
+    "question": "以下哪种贷款方式利率通常最低？",
+    "choices": ["信用贷款", "抵押贷款", "消费贷", "信用卡分期"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "银行",
+    "explanation": "抵押贷款有抵押物担保，风险较低，利率通常最低"
+  },
+  {
+    "id": "fin_021",
+    "question": "VaR(Value at Risk)的含义是什么？",
+    "choices": ["最大可能收益", "在给定置信水平下的最大可能损失", "平均损失", "损失的标准差"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "风控",
+    "explanation": "VaR是在给定置信水平和时间区间下的最大可能损失"
+  },
+  {
+    "id": "fin_022",
+    "question": "根据中国银行保险监督管理规定，商业银行单一客户贷款余额与银行资本净额之比不得超过多少？",
+    "choices": ["5%", "10%", "15%", "25%"],
+    "answer": "B",
+    "difficulty": "hard",
+    "sub_domain": "合规",
+    "explanation": "同一客户贷款余额/资本净额≤10%"
+  },
+  {
+    "id": "fin_023",
+    "question": "以下哪种情况下，投资者应优先考虑债券而非股票？",
+    "choices": ["看好经济复苏", "预期市场利率上升", "追求稳定收益且风险厌恶", "预期通胀加剧"],
+    "answer": "C",
+    "difficulty": "easy",
+    "sub_domain": "理财",
+    "explanation": "风险厌恶型投资者追求稳定收益，应优先考虑债券"
+  },
+  {
+    "id": "fin_024",
+    "question": "在反欺诈风控中，以下哪个指标用于衡量模型捕捉欺诈交易的能力？",
+    "choices": ["精确率(Precision)", "召回率(Recall)", "误报率(FPR)", "准确率(Accuracy)"],
+    "answer": "B",
+    "difficulty": "hard",
+    "sub_domain": "风控",
+    "explanation": "召回率衡量模型捕捉到正例(欺诈交易)的比例"
+  },
+  {
+    "id": "fin_025",
+    "question": "以下哪种金融衍生品主要用于对冲汇率风险？",
+    "choices": ["股指期货", "利率互换", "外汇远期", "商品期权"],
+    "answer": "C",
+    "difficulty": "medium",
+    "sub_domain": "证券",
+    "explanation": "外汇远期合约用于锁定未来汇率，对冲汇率风险"
+  },
+  {
+    "id": "fin_026",
+    "question": "保险中的'最大诚信原则'要求投保人在投保时必须履行什么义务？",
+    "choices": ["缴纳保费", "如实告知", "及时报案", "提供证明"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "保险",
+    "explanation": "最大诚信原则核心是如实告知义务"
+  },
+  {
+    "id": "fin_027",
+    "question": "某基金的夏普比率为0.8，无风险利率为3%，基金收益率为11%，则基金收益率的标准差约为多少？",
+    "choices": ["5%", "8%", "10%", "16%"],
+    "answer": "C",
+    "difficulty": "hard",
+    "sub_domain": "风控",
+    "explanation": "夏普比率=(Rp-Rf)/σp → σp=(11%-3%)/0.8=10%"
+  },
+  {
+    "id": "fin_028",
+    "question": "以下关于数字人民币的说法，哪个是正确的？",
+    "choices": ["数字人民币是加密货币", "数字人民币需要网络才能支付", "数字人民币具有法偿性", "数字人民币有利息"],
+    "answer": "C",
+    "difficulty": "easy",
+    "sub_domain": "银行",
+    "explanation": "数字人民币是法定货币的数字形式，具有法偿性"
+  },
+  {
+    "id": "fin_029",
+    "question": "以下哪种情况会导致债券的久期(duration)增加？",
+    "choices": ["票面利率上升", "到期时间缩短", "市场利率下降", "到期时间延长"],
+    "answer": "D",
+    "difficulty": "hard",
+    "sub_domain": "证券",
+    "explanation": "到期时间越长，久期越大"
+  },
+  {
+    "id": "fin_030",
+    "question": "在个人征信报告中，以下哪项信息不会出现？",
+    "choices": ["贷款记录", "信用卡还款记录", "水电费缴纳记录", "个人社交账号信息"],
+    "answer": "D",
+    "difficulty": "easy",
+    "sub_domain": "风控",
+    "explanation": "个人社交账号信息不在央行征信报告范围内"
+  },
+  {
+    "id": "fin_031",
+    "question": "某投资者使用2倍杠杆买入股票，股票上涨10%，则投资者实际收益率为多少？",
+    "choices": ["10%", "20%", "5%", "15%"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "理财",
+    "explanation": "2倍杠杆→收益率放大2倍，10%×2=20%"
+  },
+  {
+    "id": "fin_032",
+    "question": "根据《商业银行法》，商业银行的资本充足率不得低于多少？",
+    "choices": ["4%", "6%", "8%", "10%"],
+    "answer": "C",
+    "difficulty": "medium",
+    "sub_domain": "合规",
+    "explanation": "商业银行资本充足率不得低于8%"
+  },
+  {
+    "id": "fin_033",
+    "question": "以下哪种情况说明企业短期偿债能力较强？",
+    "choices": ["流动比率0.5", "速动比率1.5", "资产负债率80%", "利息保障倍数0.8"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "风控",
+    "explanation": "速动比率>1说明短期偿债能力较强"
+  },
+  {
+    "id": "fin_034",
+    "question": "以下关于公募基金的说法，哪个是错误的？",
+    "choices": ["投资门槛低", "信息披露要求严格", "可以承诺保本保收益", "受到证监会监管"],
+    "answer": "C",
+    "difficulty": "easy",
+    "sub_domain": "理财",
+    "explanation": "资管新规后不得承诺保本保收益"
+  },
+  {
+    "id": "fin_035",
+    "question": "央行实施降准操作，最直接的影响是什么？",
+    "choices": ["增加商业银行可贷资金", "提高市场利率", "减少货币供应量", "增加政府税收"],
+    "answer": "A",
+    "difficulty": "medium",
+    "sub_domain": "银行",
+    "explanation": "降准→银行可贷资金增加→货币供应量增加"
+  },
+  {
+    "id": "fin_036",
+    "question": "以下哪种保险产品具有储蓄和投资功能？",
+    "choices": ["意外险", "医疗险", "分红险", "责任险"],
+    "answer": "C",
+    "difficulty": "easy",
+    "sub_domain": "保险",
+    "explanation": "分红险既提供保障又有投资储蓄功能"
+  },
+  {
+    "id": "fin_037",
+    "question": "某银行对一笔100万元的贷款计提了5万元的贷款损失准备，则贷款损失准备计提比例为多少？",
+    "choices": ["0.5%", "2%", "5%", "10%"],
+    "answer": "C",
+    "difficulty": "easy",
+    "sub_domain": "银行",
+    "explanation": "5万/100万=5%"
+  },
+  {
+    "id": "fin_038",
+    "question": "在KYC(了解你的客户)流程中，以下哪项不属于必须核实的客户信息？",
+    "choices": ["身份证明文件", "职业信息", "个人爱好", "资金来源"],
+    "answer": "C",
+    "difficulty": "easy",
+    "sub_domain": "合规",
+    "explanation": "个人爱好不属于KYC必须核实的信息"
+  },
+  {
+    "id": "fin_039",
+    "question": "以下哪种方法可用于评估信用风险？",
+    "choices": ["蒙特卡洛模拟", "逻辑回归模型", "均值方差模型", "CAPM模型"],
+    "answer": "B",
+    "difficulty": "hard",
+    "sub_domain": "风控",
+    "explanation": "逻辑回归是信用评分卡中最常用的模型"
+  },
+  {
+    "id": "fin_040",
+    "question": "沪深300指数的基期是哪一年？",
+    "choices": ["2002年", "2004年", "2005年", "2006年"],
+    "answer": "C",
+    "difficulty": "hard",
+    "sub_domain": "证券",
+    "explanation": "沪深300指数以2004年12月31日为基期，基点1000点"
+  },
+  {
+    "id": "fin_041",
+    "question": "以下哪种投资策略属于被动投资？",
+    "choices": ["择时交易", "指数跟踪", "主题投资", "量化对冲"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "理财",
+    "explanation": "指数跟踪(被动投资)不主动选股择时"
+  },
+  {
+    "id": "fin_042",
+    "question": "某人贷款50万元，年利率4.9%，等额本息还款30年，以下说法正确的是？",
+    "choices": ["每月还款额逐月递减", "前期还款中利息占比大于本金", "30年总利息约45万", "每月还款中本金占比固定"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "银行",
+    "explanation": "等额本息还款前期利息占比大于本金"
+  },
+  {
+    "id": "fin_043",
+    "question": "以下关于北交所的说法，哪个是正确的？",
+    "choices": ["仅服务大型企业", "涨跌幅限制为10%", "服务于创新型中小企业", "只接受盈利企业上市"],
+    "answer": "C",
+    "difficulty": "medium",
+    "sub_domain": "证券",
+    "explanation": "北交所定位于服务创新型中小企业"
+  },
+  {
+    "id": "fin_044",
+    "question": "保险合同中的'不可抗辩条款'是指保险公司在合同生效多长时间后不得以如实告知为由解除合同？",
+    "choices": ["1年", "2年", "3年", "5年"],
+    "answer": "B",
+    "difficulty": "hard",
+    "sub_domain": "保险",
+    "explanation": "不可抗辩条款规定2年后保险公司不得解除合同"
+  },
+  {
+    "id": "fin_045",
+    "question": "以下哪种情况会触发银行的反洗钱预警？",
+    "choices": ["每月固定存入工资", "频繁大额现金存入且无法说明来源", "定期购买基金", "使用手机银行转账"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "合规",
+    "explanation": "频繁大额现金存入且无法说明来源属于可疑交易"
+  },
+  {
+    "id": "fin_046",
+    "question": "某信用评分模型KS值为35%，该模型的区分能力如何评价？",
+    "choices": ["区分能力极强", "区分能力较强", "区分能力一般", "区分能力较弱"],
+    "answer": "C",
+    "difficulty": "hard",
+    "sub_domain": "风控",
+    "explanation": "KS<20%较弱，20%-40%一般，40%-60%较强，>60%极强"
+  },
+  {
+    "id": "fin_047",
+    "question": "以下哪种金融产品在资管新规后不再发行新产品？",
+    "choices": ["货币基金", "银行理财产品", "保本理财", "国债逆回购"],
+    "answer": "C",
+    "difficulty": "medium",
+    "sub_domain": "合规",
+    "explanation": "资管新规打破刚性兑付，保本理财不再发行"
+  },
+  {
+    "id": "fin_048",
+    "question": "某上市公司总股本1亿股，当前股价30元，净利润6000万元，则其市盈率为多少？",
+    "choices": ["20倍", "30倍", "50倍", "60倍"],
+    "answer": "C",
+    "difficulty": "medium",
+    "sub_domain": "证券",
+    "explanation": "EPS=6000万/1亿=0.6元，PE=30/0.6=50倍"
+  },
+  {
+    "id": "fin_049",
+    "question": "以下哪种场景最适合使用信用评分模型？",
+    "choices": ["评估股票投资价值", "审批个人贷款申请", "计算基金收益率", "评估企业税务风险"],
+    "answer": "B",
+    "difficulty": "easy",
+    "sub_domain": "风控",
+    "explanation": "信用评分模型主要用于个人贷款审批等信用评估场景"
+  },
+  {
+    "id": "fin_050",
+    "question": "以下关于LPR(贷款市场报价利率)的说法，哪个是正确的？",
+    "choices": ["LPR由央行直接制定", "LPR每月公布一次", "LPR只有1年期一种", "LPR不受市场影响"],
+    "answer": "B",
+    "difficulty": "medium",
+    "sub_domain": "银行",
+    "explanation": "LPR由报价行报出，每月20日公布，有1年期和5年期以上两种"
+  }
+]

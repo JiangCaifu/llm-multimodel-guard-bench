@@ -1,0 +1,31 @@
+# 数据集配置 - GSM8K (小学数学应用题)
+name: gsm8k
+version: 1.0.0
+
+source:
+  type: huggingface
+  path: gsm8k
+  subset: main
+  split: test
+
+eval:
+  method: generation
+  sample_size: 300
+  random_seed: 42
+  n_shot: 8
+
+prompt_template: |
+  {{ few_shot_examples }}
+
+  Question: {{ question }}
+  Let's think step by step.
+
+judge:
+  method: contains
+  answer_field: answer
+  choices_field: null
+
+metadata:
+  language: en
+  domain: math
+  tags: [math, reasoning, grade_school]

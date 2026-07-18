@@ -1,0 +1,40 @@
+# 数据集配置 - 自建金融评测集
+name: finance_50
+version: 1.0.0
+
+source:
+  type: local
+  path: data/datasets/finance_50.json
+  subset: null
+  split: test
+
+eval:
+  method: multiple_choice
+  sample_size: null  # 全部50条
+  random_seed: 42
+  n_shot: 0
+
+prompt_template: |
+  以下是一道金融领域的单项选择题。
+
+  题目：{{ question }}
+  A. {{ choices[0] }}
+  B. {{ choices[1] }}
+  C. {{ choices[2] }}
+  D. {{ choices[3] }}
+  答案：
+
+judge:
+  method: multiple_choice
+  answer_field: answer
+  choices_field: choices
+
+metadata:
+  language: zh
+  domain: finance
+  tags: [finance, chinese, custom, risk_management, compliance]
+  sub_domains: [理财, 证券, 银行, 保险, 风控, 合规]
+  difficulty_distribution:
+    easy: 20
+    medium: 22
+    hard: 8
