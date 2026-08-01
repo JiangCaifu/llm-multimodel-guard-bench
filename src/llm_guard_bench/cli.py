@@ -147,6 +147,46 @@ def _cmd_multimodal(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_agent(args: argparse.Namespace) -> int:
+    """执行Agent评测."""
+    from llm_guard_bench.adapters.factory import build_adapter, load_model_config
+    from llm_guard_bench.agent.runner import AgentRunner
+
+    model_name = args.model or "qwen-turbo"
+    task_type = args.task or "full"
+    output_dir = args.output or "./data/results/agent"
+
+    logger.info(f"启动Agent评测: model={model_name}, task={task_type}")
+
+    config = load_model_config(model_name)
+    adapter = build_adapter(config)
+    runner = AgentRunner(adapter)
+
+    if task_type == "tool":
+        report_dict = runner.run_tool_call()
+        logger.info(f"  工具选择准确率: {report_dict.get('tool_selection_accuracy', 'N/A')}")
+        logger.info(f"  参数填充准确率: {report_dict.get('params_fill_accuracy', 'N/A')}")
+    elif task_type == "multi_step":
+        report_dict = runner.run_multi_step()
+        logger.info(f"  规划评分: {report_dict.get('avg_planning_score', 'N/A')}")
+        logger.info(f"  执行正确率: {report_dict.get('avg_execution_accuracy', 'N/A')}")
+    elif task_type == "code":
+        report_dict = runner.run_code_agent()
+        logger.info(f"  代码生成通过率: {report_dict.get('code_generation', {}).get('pass_rate', 'N/A')}")
+        logger.info(f"  调试修复率: {report_dict.get('debug_fix', {}).get('fix_rate', 'N/A')}")
+    else:
+        report = runner.run_full()
+        runner.print_report(report)
+        path = runner.save_report(report, output_dir)
+        logger.info(f"Agent评测报告已保存: {path}")
+        return 0
+
+    if task_type != "full":
+        logger.info("评测完成")
+
+    return 0
+
+
 def _cmd_list_datasets(_args: argparse.Namespace) -> int:
     """列出可用的数据集配置."""
     datasets_dir = CONFIGS_DIR / "datasets"
@@ -290,6 +330,13 @@ def build_parser() -> argparse.ArgumentParser:
     mm_parser.add_argument("--images-dir", "-i", default="./data/images", help="评测图片目录")
     mm_parser.add_argument("--output", "-o", default="./data/results/multimodal", help="结果输出目录")
     mm_parser.set_defaults(func=_cmd_multimodal)
+
+    # agent: Agent评测
+    agent_parser = subparsers.add_parser("agent", help="执行Agent评测")
+    agent_parser.add_argument("--model", "-m", default="qwen-turbo", help="被评测模型名")
+    agent_parser.add_argument("--task", "-t", choices=["tool", "multi_step", "code", "full"], default="full", help="评测任务类型")
+    agent_parser.add_argument("--output", "-o", default="./data/results/agent", help="结果输出目录")
+    agent_parser.set_defaults(func=_cmd_agent)
 
     return parser
 
