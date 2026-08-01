@@ -249,45 +249,56 @@ class MultiStepEvaluator:
         return any(kw in response for kw in complete_keywords)
 
     @staticmethod
-    def _extract_key_phrases(text: str) -> List[str]:
-        """从期望行动中提取关键短语.
+    def _extract_keywords(text: str) -> List[str]:
+        """从期望行动中提取关键词.
 
-        对中文文本，按标点和关键词分割提取有意义的关键短语。
+        策略：按标点和连词分割，再对过长的片段按2-4字滑窗提取短关键词。
         """
         import re as _re
+        # 去除停用词
+        stopwords = {"的", "了", "和", "与", "及", "或", "等", "中", "在", "是", "有", "对", "并"}
         # 按标点分割
         parts = _re.split(r'[，、；或和及与/]', text)
-        # 过滤过短的片段，提取核心词
-        phrases = []
+        keywords = []
         for p in parts:
             p = p.strip()
-            if len(p) >= 2:
-                phrases.append(p)
-        # 如果没有分割出有意义的短语，把整个文本作为关键短语
-        if not phrases:
-            phrases = [text]
-        return phrases
+            if len(p) <= 1:
+                continue
+            # 短片段直接作为关键词
+            if len(p) <= 4:
+                if p not in stopwords:
+                    keywords.append(p)
+            else:
+                # 长片段：用2-4字滑窗提取
+                for wlen in (4, 3, 2):
+                    for i in range(len(p) - wlen + 1):
+                        w = p[i:i + wlen]
+                        if not any(s in w for s in stopwords) and w not in keywords:
+                            keywords.append(w)
+        if not keywords:
+            keywords = [text[:4]]
+        return keywords
 
     @staticmethod
     def _evaluate_step(step: TaskStep, all_responses: str) -> StepResult:
         """评估单个步骤完成情况."""
         step_result = StepResult(step_id=step.step_id)
 
-        # 提取关键短语并检查是否被提及
-        key_phrases = MultiStepEvaluator._extract_key_phrases(step.expected_action)
-        matched_phrases = [p for p in key_phrases if p in all_responses]
-        match_rate = len(matched_phrases) / len(key_phrases) if key_phrases else 0.0
+        # 提取关键词并检查是否被提及
+        keywords = MultiStepEvaluator._extract_keywords(step.expected_action)
+        matched = [kw for kw in keywords if kw in all_responses]
+        match_rate = len(matched) / len(keywords) if keywords else 0.0
 
-        # 相关性判断：至少30%的关键短语被提及
-        step_result.is_relevant = match_rate >= 0.3
+        # 相关性判断：至少20%的关键词被提及
+        step_result.is_relevant = match_rate >= 0.2
 
-        # 正确性判断：至少50%的关键短语被提及
-        step_result.is_correct = match_rate >= 0.5
+        # 正确性判断：至少40%的关键词被提及
+        step_result.is_correct = match_rate >= 0.4
 
         # 提取模型行动
-        for phrase in matched_phrases:
+        for kw in matched:
             for line in all_responses.split("\n"):
-                if phrase in line:
+                if kw in line:
                     step_result.action_extracted = line.strip()[:100]
                     break
             if step_result.action_extracted:

@@ -99,41 +99,14 @@ class OpenAIAdapter(BaseModelAdapter):
         timeout: Optional[int] = None,
         **kwargs: Any,
     ) -> GenerationResult:
-        start_time = time.time()
+        """生成响应.
 
-        try:
-            effective_max_tokens, effective_temperature, _ = self._get_effective_params(
-                max_tokens, temperature, timeout
-            )
-
-            response = self._client.completions.create(
-                model=self._config.model_name,
-                prompt=prompt,
-                max_tokens=effective_max_tokens,
-                temperature=effective_temperature,
-                **kwargs,
-            )
-
-            latency_ms = self._record_latency(start_time)
-            completion = response.choices[0]
-
-            return GenerationResult(
-                text=completion.text.strip(),
-                prompt_tokens=response.usage.prompt_tokens,
-                completion_tokens=response.usage.completion_tokens,
-                total_tokens=response.usage.total_tokens,
-                latency_ms=latency_ms,
-                finish_reason=completion.finish_reason,
-                raw_response=response.model_dump(),
-            )
-
-        except Exception as e:
-            latency_ms = self._record_latency(start_time)
-            return GenerationResult(
-                text="",
-                latency_ms=latency_ms,
-                error=str(e),
-            )
+        优先使用 Chat API（兼容性更好），如果失败则回退到 Completion API。
+        """
+        # 转发到 chat 接口（DashScope 等兼容 API 更稳定）
+        messages = [{"role": "user", "content": prompt}]
+        result = self.chat(messages, max_tokens=max_tokens, temperature=temperature, timeout=timeout, **kwargs)
+        return result
 
     def chat(
         self,

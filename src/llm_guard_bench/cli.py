@@ -278,6 +278,63 @@ def _cmd_safety(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_aitest(args: argparse.Namespace) -> int:
+    """执行AI驱动测试工具."""
+    from llm_guard_bench.adapters.factory import build_adapter, load_model_config
+    from llm_guard_bench.aitest.bug_detector import BugDetector
+    from llm_guard_bench.aitest.case_generator import CaseGenerator
+    from llm_guard_bench.aitest.data_factory import DataFactory, BUILTIN_TEMPLATES
+    from llm_guard_bench.aitest.runner import AITestRunner
+
+    model_name = args.model or "qwen-turbo"
+    task_type = args.task or "full"
+    output_dir = args.output or "./data/results/aitest"
+
+    logger.info(f"启动AI测试工具: model={model_name}, task={task_type}")
+
+    config = load_model_config(model_name)
+    adapter = build_adapter(config)
+
+    if task_type == "full":
+        runner = AITestRunner(adapter)
+        report = runner.run_all()
+        path = runner.save_report(report, output_dir)
+        logger.info(f"AI测试报告已保存: {path}")
+    elif task_type == "gen-cases":
+        gen = CaseGenerator(adapter)
+        if args.input:
+            with open(args.input, "r", encoding="utf-8") as f:
+                requirement = f.read()
+            report = gen.generate(requirement)
+        else:
+            runner = AITestRunner(adapter)
+            report = runner.run_case_generation()
+        CaseGenerator.print_report(report)
+        path = gen.save_report(report, output_dir)
+        logger.info(f"用例已保存: {path}")
+    elif task_type == "detect-bugs":
+        detector = BugDetector(adapter)
+        if args.input:
+            with open(args.input, "r", encoding="utf-8") as f:
+                samples = json.load(f)
+            report = detector.detect_batch(samples)
+        else:
+            runner = AITestRunner(adapter)
+            report = runner.run_bug_detection()
+        BugDetector.print_report(report)
+        path = detector.save_report(report, output_dir)
+        logger.info(f"缺陷报告已保存: {path}")
+    elif task_type == "gen-data":
+        factory = DataFactory(adapter)
+        template_name = args.template or "user_profile"
+        report = factory.generate(BUILTIN_TEMPLATES[template_name])
+        DataFactory.print_report(report)
+        path = factory.save_report(report, output_dir)
+        logger.info(f"数据已保存: {path}")
+
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     """构建 CLI 参数解析器."""
     parser = argparse.ArgumentParser(
@@ -337,6 +394,16 @@ def build_parser() -> argparse.ArgumentParser:
     agent_parser.add_argument("--task", "-t", choices=["tool", "multi_step", "code", "full"], default="full", help="评测任务类型")
     agent_parser.add_argument("--output", "-o", default="./data/results/agent", help="结果输出目录")
     agent_parser.set_defaults(func=_cmd_agent)
+
+    # aitest: AI驱动测试工具
+    aitest_parser = subparsers.add_parser("aitest", help="AI驱动测试工具")
+    aitest_parser.add_argument("--model", "-m", default="qwen-turbo", help="用于生成/检测的模型名")
+    aitest_parser.add_argument("--task", "-t", choices=["gen-cases", "detect-bugs", "gen-data", "full"], default="full",
+                               help="任务类型: gen-cases=用例生成, detect-bugs=缺陷识别, gen-data=数据构造, full=全部")
+    aitest_parser.add_argument("--input", "-i", default=None, help="输入文件路径（需求文档/测试结果）")
+    aitest_parser.add_argument("--template", default="user_profile", help="数据模板名 (user_profile/product/order)")
+    aitest_parser.add_argument("--output", "-o", default="./data/results/aitest", help="结果输出目录")
+    aitest_parser.set_defaults(func=_cmd_aitest)
 
     return parser
 
