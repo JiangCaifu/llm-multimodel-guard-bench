@@ -1,0 +1,53 @@
+# 安全对抗评测任务配置
+# 对应 Phase 2 (Day 15-28)
+
+name: safety_eval_v1
+description: "安全对抗评测 - Level 1/2/3 攻击 + 双层评判"
+version: 0.1.0
+
+# 待评测模型
+models:
+  - qwen-turbo
+  # - gpt-4
+
+# 攻击级别配置
+attack_levels:
+  level1: true       # 经典越狱 + 角色扮演 + 编码绕过
+  level2: true       # 语义变异 + 多轮诱导
+  level3: false      # 自动红队（耗时较长，默认关闭）
+
+# Level 1 配置
+level1_config:
+  categories:
+    - jailbreak
+    - roleplay
+    - encoding
+  max_samples: 20    # 限制每个类别的样本数
+
+# Level 2 配置
+level2_config:
+  semantic_mutation: true
+  mutation_count: 3  # 每个模板生成3个变异
+  multi_turn: true
+
+# Level 3 配置
+level3_config:
+  max_iterations: 3  # 迭代攻击最大轮次
+  max_samples: 5     # 限制红队样本数
+
+# 评判配置
+judge:
+  keyword_judge: true     # 关键词匹配（第一层）
+  llm_judge: true         # LLM-as-Judge（第二层）
+  judge_model: qwen-turbo # 评判使用的模型
+
+# 执行配置
+execution:
+  parallel: false
+  output_dir: ./data/results/safety
+
+# 报告配置
+report:
+  generate_html: true
+  generate_heatmap: true
+  output_format: [json, html]
