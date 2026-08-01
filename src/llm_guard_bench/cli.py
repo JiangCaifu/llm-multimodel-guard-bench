@@ -10,6 +10,8 @@
 from __future__ import annotations
 
 import argparse
+import json
+import os
 import sys
 from pathlib import Path
 
@@ -278,6 +280,79 @@ def _cmd_safety(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_experience(args: argparse.Namespace) -> int:
+    """执行应用层体验测试."""
+    from llm_guard_bench.adapters.factory import build_adapter, load_model_config
+    from llm_guard_bench.experience.runner import ExperienceRunner
+
+    model_name = args.model or "qwen-turbo"
+    task_type = args.task or "full"
+    output_dir = args.output or "./data/results/experience"
+
+    logger.info(f"启动应用层体验测试: model={model_name}, task={task_type}")
+
+    config = load_model_config(model_name)
+    adapter = build_adapter(config)
+    runner = ExperienceRunner(adapter)
+
+    if task_type == "ux":
+        report = runner.run_ux()
+        # 直接保存UX报告
+        os.makedirs(output_dir, exist_ok=True)
+        path = os.path.join(output_dir, f"ux_{model_name}.json")
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(report.to_dict(), f, indent=2, ensure_ascii=False)
+        logger.info(f"UX评测报告已保存: {path}")
+    elif task_type == "ab":
+        # A/B测试需要第二个模型
+        model_b_name = args.model_b
+        if not model_b_name:
+            logger.error("A/B测试需要指定 --model-b 参数")
+            return 1
+        config_b = load_model_config(model_b_name)
+        adapter_b = build_adapter(config_b)
+
+        prompts = [
+            "什么是机器学习？",
+            "帮我写一封请假邮件",
+            "Python和Java哪个好？",
+            "如何提高写作能力？",
+            "解释一下什么是API",
+        ]
+        report = runner.run_ab(adapter_b, prompts)
+        os.makedirs(output_dir, exist_ok=True)
+        path = os.path.join(output_dir, f"abtest_{model_name}_vs_{model_b_name}.json")
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(report.to_dict(), f, indent=2, ensure_ascii=False)
+        logger.info(f"A/B测试报告已保存: {path}")
+    elif task_type == "optimize":
+        # 优化闭环：基于已有UX评测结果
+        if args.input:
+            with open(args.input, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            scores = data.get("dimension_scores", {})
+            issues = data.get("issue_stats", {})
+            issue_list = list(issues.keys())
+        else:
+            logger.info("未提供输入文件，使用演示数据")
+            scores = {"quality": 7.0, "relevance": 6.5, "completeness": 5.5, "readability": 7.5, "friendliness": 6.0}
+            issue_list = ["too_short", "unclear"]
+
+        report = runner.run_optimization(scores=scores, issues=issue_list)
+        os.makedirs(output_dir, exist_ok=True)
+        path = os.path.join(output_dir, f"optimization_{model_name}.json")
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(report.to_dict(), f, indent=2, ensure_ascii=False)
+        logger.info(f"优化报告已保存: {path}")
+    else:
+        # full
+        report = runner.run_full()
+        path = runner.save_report(report, output_dir)
+        logger.info(f"体验测试报告已保存: {path}")
+
+    return 0
+
+
 def _cmd_aitest(args: argparse.Namespace) -> int:
     """执行AI驱动测试工具."""
     from llm_guard_bench.adapters.factory import build_adapter, load_model_config
@@ -404,6 +479,16 @@ def build_parser() -> argparse.ArgumentParser:
     aitest_parser.add_argument("--template", default="user_profile", help="数据模板名 (user_profile/product/order)")
     aitest_parser.add_argument("--output", "-o", default="./data/results/aitest", help="结果输出目录")
     aitest_parser.set_defaults(func=_cmd_aitest)
+
+    # experience: 应用层体验测试
+    exp_parser = subparsers.add_parser("experience", help="应用层体验测试")
+    exp_parser.add_argument("--model", "-m", default="qwen-turbo", help="被评测模型名")
+    exp_parser.add_argument("--task", "-t", choices=["ux", "ab", "optimize", "full"], default="full",
+                            help="任务类型: ux=用户体验, ab=A/B测试, optimize=优化闭环, full=全部")
+    exp_parser.add_argument("--model-b", default=None, help="A/B测试的第二个模型名")
+    exp_parser.add_argument("--input", "-i", default=None, help="输入文件路径（优化闭环用）")
+    exp_parser.add_argument("--output", "-o", default="./data/results/experience", help="结果输出目录")
+    exp_parser.set_defaults(func=_cmd_experience)
 
     return parser
 
