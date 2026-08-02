@@ -9,7 +9,7 @@ def test_load_evaluation_config() -> None:
     config = EvaluationConfig.from_yaml("configs/evaluation/capability.yaml")
     assert config.name == "capability_eval_v1"
     assert "qwen-turbo" in config.models
-    assert "mmlu" in config.datasets
+    assert "finance_50" in config.datasets
     assert not config.execution.parallel
 
 
