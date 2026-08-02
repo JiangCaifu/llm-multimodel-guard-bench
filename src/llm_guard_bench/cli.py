@@ -280,6 +280,56 @@ def _cmd_safety(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_alignment(args: argparse.Namespace) -> int:
+    """执行Phase 6: 人工标注 + Judge对齐分析."""
+    from llm_guard_bench.alignment.runner import AlignmentRunner
+
+    task_type = args.task or "demo"
+    output_dir = args.output or "./data/results/alignment"
+
+    logger.info(f"启动Judge对齐分析: task={task_type}")
+
+    runner = AlignmentRunner()
+
+    if task_type == "demo":
+        # 演示模式：用模拟数据验证对齐指标计算
+        n = args.samples or 10
+        report = runner.run_demo(n=n)
+    elif task_type == "analyze":
+        # 分析模式：加载已标注数据
+        if not args.input:
+            logger.error("分析模式需要 --input 参数指定标注文件")
+            return 1
+        report = runner.run_analyze(args.input, output_dir)
+    elif task_type == "generate":
+        # 从评测结果生成待标注数据
+        if not args.input:
+            logger.error("生成模式需要 --input 参数指定评测结果文件")
+            return 1
+        runner.run_from_eval_results(args.input, output_dir)
+    elif task_type == "annotate":
+        # 交互式标注
+        if not args.input:
+            logger.error("标注模式需要 --input 参数指定待标注文件")
+            return 1
+        from llm_guard_bench.alignment.annotator import Annotator
+        dataset = Annotator.load(args.input)
+        annotator = Annotator(labels=dataset.labels)
+        dataset = annotator.annotate_interactive(dataset)
+        # output 可能是目录或文件路径
+        output_path = args.output or "./data/annotations"
+        if os.path.isdir(output_path) or not output_path.endswith(".json"):
+            os.makedirs(output_path, exist_ok=True)
+            output_path = os.path.join(output_path, "annotation.json")
+        annotator.save(dataset, output_path)
+        logger.info(f"标注数据已保存: {output_path}")
+    else:
+        logger.error(f"未知任务: {task_type}")
+        return 1
+
+    return 0
+
+
 def _cmd_experience(args: argparse.Namespace) -> int:
     """执行应用层体验测试."""
     from llm_guard_bench.adapters.factory import build_adapter, load_model_config
@@ -489,6 +539,16 @@ def build_parser() -> argparse.ArgumentParser:
     exp_parser.add_argument("--input", "-i", default=None, help="输入文件路径（优化闭环用）")
     exp_parser.add_argument("--output", "-o", default="./data/results/experience", help="结果输出目录")
     exp_parser.set_defaults(func=_cmd_experience)
+
+    # alignment: Judge对齐分析
+    align_parser = subparsers.add_parser("alignment", help="人工标注+Judge对齐分析")
+    align_parser.add_argument("--task", "-t", choices=["demo", "generate", "annotate", "analyze"],
+                              default="demo",
+                              help="任务类型: demo=演示, generate=生成待标注, annotate=交互标注, analyze=分析对齐")
+    align_parser.add_argument("--input", "-i", default=None, help="输入文件路径")
+    align_parser.add_argument("--output", "-o", default="./data/results/alignment", help="结果输出目录")
+    align_parser.add_argument("--samples", "-n", type=int, default=10, help="演示模式样本数")
+    align_parser.set_defaults(func=_cmd_alignment)
 
     return parser
 
