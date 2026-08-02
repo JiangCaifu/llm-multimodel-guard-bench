@@ -1,0 +1,232 @@
+# =============================================================================
+# 主评测流水线 - 分级触发
+# =============================================================================
+# 触发条件:
+#   - push到main分支: 跑Core评测
+#   - PR提交: 跑Smoke评测（快速反馈）
+#   - 手动触发 (workflow_dispatch): 可选级别
+# =============================================================================
+
+name: LLM Guard Bench Evaluation
+
+on:
+  push:
+    branches: [main, master]
+    paths-ignore: ['**.md', '**.png', '**.jpg', 'docs/**']
+  pull_request:
+    branches: [main, master]
+    paths-ignore: ['**.md', '**.png', '**.jpg', 'docs/**']
+  workflow_dispatch:
+    inputs:
+      level:
+        description: '评测级别'
+        required: false
+        default: 'smoke'
+        type: choice
+        options:
+          - smoke
+          - core
+          - full
+
+env:
+  PYTHON_VERSION: '3.10'
+  PROJECT_NAME: 'llm-multimodel-guard-bench'
+  RESULTS_DIR: 'data/results'
+  # API配置（使用Repository Secrets）
+  DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+  DASHSCOPE_MODEL: "${{ secrets.DASHSCOPE_MODEL || 'qwen-turbo' }}"
+  DASHSCOPE_BASE_URL: "${{ secrets.DASHSCOPE_BASE_URL || 'https://dashscope.aliyuncs.com/compatible-mode/v1' }}"
+
+jobs:
+  # =============================================================================
+  # Job 1: 环境搭建
+  # =============================================================================
+  setup:
+    name: 环境搭建
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 设置Python环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+          cache-dependency-path: 'pyproject.toml'
+
+      - name: 安装依赖
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[judge,dev]"
+
+      - name: 环境验证
+        run: |
+          python -c "import llm_guard_bench; print(f'llm_guard_bench {llm_guard_bench.__version__}')"
+          python -c "from llm_guard_bench.cli import main; print('CLI OK')"
+
+      - name: 缓存环境
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.cache/huggingface
+          key: ${{ runner.os }}-pip-${{ hashFiles('pyproject.toml') }}
+
+  # =============================================================================
+  # Job 2: Smoke评测（PR快速反馈）
+  # =============================================================================
+  smoke_eval:
+    name: Smoke评测
+    needs: setup
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && github.event.inputs.level == 'smoke')
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 恢复环境
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.cache/huggingface
+          key: ${{ runner.os }}-pip-${{ hashFiles('pyproject.toml') }}
+
+      - name: 安装依赖
+        run: pip install -e ".[judge,dev]"
+
+      - name: 运行单元测试
+        run: python -m pytest tests/ -v --tb=short -x
+
+      - name: Smoke - 安全Level1最小集
+        run: python -m llm_guard_bench.cli safety --level 1 --max-samples 3 --output ${RESULTS_DIR}/smoke
+
+      - name: Smoke - 能力快速测试
+        run: python -m llm_guard_bench.cli run --config configs/evaluation/capability.yaml --max-samples 5 --output ${RESULTS_DIR}/smoke
+
+      - name: 上传报告
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-results
+          path: ${{ env.RESULTS_DIR }}/smoke/
+          retention-days: 7
+
+  # =============================================================================
+  # Job 3: Core评测（Push到main / PR合并时）
+  # =============================================================================
+  core_eval:
+    name: Core评测
+    needs: setup
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.level == 'core')
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 恢复环境
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.cache/huggingface
+          key: ${{ runner.os }}-pip-${{ hashFiles('pyproject.toml') }}
+
+      - name: 安装依赖
+        run: pip install -e ".[judge,dev,viz]"
+
+      - name: 运行单元测试
+        run: python -m pytest tests/ -v --tb=short
+
+      - name: Core - 安全Level1-2
+        run: |
+          python -m llm_guard_bench.cli safety --level 1 --output ${RESULTS_DIR}/core
+          python -m llm_guard_bench.cli safety --level 2 --output ${RESULTS_DIR}/core
+
+      - name: Core - 能力全量
+        run: python -m llm_guard_bench.cli run --config configs/evaluation/capability.yaml --output ${RESULTS_DIR}/core
+
+      - name: Core - 性能基准
+        run: python -m llm_guard_bench.cli perf --quick --output ${RESULTS_DIR}/core
+
+      - name: Core - 对齐验证
+        run: python -m llm_guard_bench.cli alignment --task demo --output ${RESULTS_DIR}/core
+
+      - name: 生成评测汇总
+        run: |
+          echo "## Core评测报告" >> $GITHUB_STEP_SUMMARY
+          echo "✅ 安全评测 (Level 1-2)" >> $GITHUB_STEP_SUMMARY
+          echo "✅ 能力评测 (全量)" >> $GITHUB_STEP_SUMMARY
+          echo "✅ 性能基准 (快速模式)" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Judge对齐验证" >> $GITHUB_STEP_SUMMARY
+
+      - name: 上传报告
+        uses: actions/upload-artifact@v4
+        with:
+          name: core-results
+          path: ${{ env.RESULTS_DIR }}/core/
+          retention-days: 30
+
+  # =============================================================================
+  # Job 4: Full评测（手动触发）
+  # =============================================================================
+  full_eval:
+    name: Full评测
+    needs: setup
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.level == 'full'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 恢复环境
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.cache/huggingface
+          key: ${{ runner.os }}-pip-${{ hashFiles('pyproject.toml') }}
+
+      - name: 安装全量依赖
+        run: pip install -e ".[judge,dev,viz,multimodal]"
+
+      - name: 运行全量测试
+        run: python -m pytest tests/ -v --tb=long --cov=llm_guard_bench --cov-report=html
+
+      - name: Full - 安全全层级
+        run: |
+          python -m llm_guard_bench.cli safety --level 1 --output ${RESULTS_DIR}/full
+          python -m llm_guard_bench.cli safety --level 2 --output ${RESULTS_DIR}/full
+          python -m llm_guard_bench.cli safety --level 3 --output ${RESULTS_DIR}/full
+
+      - name: Full - 能力全量
+        run: python -m llm_guard_bench.cli run --config configs/evaluation/capability.yaml --output ${RESULTS_DIR}/full
+
+      - name: Full - 性能全量
+        run: python -m llm_guard_bench.cli perf --output ${RESULTS_DIR}/full
+
+      - name: Full - Agent评测
+        run: python -m llm_guard_bench.cli agent --task full --output ${RESULTS_DIR}/full
+
+      - name: Full - 体验评测
+        run: python -m llm_guard_bench.cli experience --task full --output ${RESULTS_DIR}/full
+
+      - name: Full - AI测试工具
+        run: python -m llm_guard_bench.cli aitest --task full --output ${RESULTS_DIR}/full
+
+      - name: Full - 对齐验证
+        run: python -m llm_guard_bench.cli alignment --task demo --samples 30 --output ${RESULTS_DIR}/full
+
+      - name: 生成全量报告
+        run: |
+          echo "## Full评测报告" >> $GITHUB_STEP_SUMMARY
+          echo "✅ 安全评测 (Level 1-3)" >> $GITHUB_STEP_SUMMARY
+          echo "✅ 能力评测 (全量)" >> $GITHUB_STEP_SUMMARY
+          echo "✅ 性能基准 (全量)" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Agent评测" >> $GITHUB_STEP_SUMMARY
+          echo "✅ 体验评测" >> $GITHUB_STEP_SUMMARY
+          echo "✅ AI测试工具" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Judge对齐验证" >> $GITHUB_STEP_SUMMARY
+
+      - name: 上传报告
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-results
+          path: ${{ env.RESULTS_DIR }}/full/
+          retention-days: 90
